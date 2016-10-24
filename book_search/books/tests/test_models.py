@@ -14,7 +14,7 @@ class TestCategory(TestCase):
 class TestBook(TestCase):
 
     def setUp(self):
-        self.category = Category.objects.create(name='Health')
+        self.category = Category.objects.create(name='Wellness')
         self.book = Book.objects.create(
             title='Living a healthy lifestyle', category=self.category)
 

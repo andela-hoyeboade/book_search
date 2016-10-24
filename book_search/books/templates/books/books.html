@@ -1,0 +1,68 @@
+{% extends 'books/layout/base.html' %}
+{% block content %}
+<div class="col-sm-6 col-sm-offset-3">
+<form action="{% url 'book_list' %}" method="get" class="form-inline">
+    <div class="form-group">
+        <input type="text" name="q" placeholder="Search for desired books" required="true" class="form-control" style="width: 400px">
+        <select class="form-control" name='search_type'>
+            <option value="any">Any</option>
+            <option value="title">Title</option>
+            <option value="category">Category</option>
+        </select>
+        <input type="submit" class="btn btn-default" value="Search">
+    </div>
+</form>
+<br>
+{% if books %}
+    {% if query_string %}
+        <h5> Results matching search <strong><em> {{ query_string }} </strong></em> ({{books|length}} book{{books|pluralize}} found)</h5>
+    {% else %}
+        <h5> List of available books </h5>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    S/N
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Published Date
+                </th>
+            </tr>
+        </thead>
+        {% for book in books %}
+        <tbody>
+            <tr>
+                <td>
+                    {{forloop.counter}}
+                </td>
+                <td>
+                    {{ book.title }}
+                </td>
+                <td>
+                    {{ book.category}}
+                </td>
+                <td>
+                    {{ book.pub_date }}
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% else %}
+    {% if query_string %}
+        <h5> Sorry. No book matches your search </h5>
+    {% else %}
+        <h5> No books in the store yet </h5>
+    {% endif %}
+{% endif %}
+
+</div>
+
+{% endblock content %}
